@@ -27,3 +27,13 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignore compiled class files
+*.class
+
+# Ignore IntelliJ IDEA settings
+.idea/
+*.iml
+
+# Ignore logs
+*.log
