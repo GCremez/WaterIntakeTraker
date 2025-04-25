@@ -1,9 +1,12 @@
 package service;
 
 import model.WaterEntry;
+import repository.WaterRepository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class WaterTrackerService {
 
@@ -19,13 +22,15 @@ public class WaterTrackerService {
 
     public void addEntry(WaterEntry entry) {
         entries.add(entry);
+        // Save the entry to the repository
+        WaterRepository.saveEntries(entries);
     }
 
     public int getTotalWaterIntake() {
         int total = 0;
 
         for (WaterEntry entry : entries) {
-            total += entry.getAmount();
+            total += entry.amount();
         }
 
         return total;
@@ -40,7 +45,11 @@ public class WaterTrackerService {
     }
 
     public double getProgress() {
+        if (dailyGoal == 0) {
+            return 0.0; // Avoid division by zero
+        }
         return (getTotalWaterIntake() * 100.0) / dailyGoal;
+
     }
 
     public boolean isGoalMet() {
@@ -48,4 +57,14 @@ public class WaterTrackerService {
                 >= dailyGoal;
     }
 
+    public List<WaterEntry> getHistory() {
+        return WaterRepository.loadAllEntries();
+    }
+
+
+
+    public void clearHistory() {
+        entries.clear();
+        WaterRepository.clearEntries();
+    }
 }

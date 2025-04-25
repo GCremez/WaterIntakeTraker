@@ -2,11 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class WaterEntry {
-    private LocalDateTime timestamp;
-    private int amount;
-
-
+public record WaterEntry(int amount, LocalDateTime timestamp) {
     /**
      * Constructor for WaterEntry
      *
@@ -14,20 +10,9 @@ public class WaterEntry {
      */
 
 
-
-    public WaterEntry(int amount) {
+    public WaterEntry(int amount, LocalDateTime timestamp) {
         this.timestamp = LocalDateTime.now();
         this.amount = amount;
-    }
-
-
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public int getAmount() {
-        return amount;
     }
 
     @Override

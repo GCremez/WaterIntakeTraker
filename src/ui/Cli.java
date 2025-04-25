@@ -1,7 +1,10 @@
 package ui;
 
 import model.WaterEntry;
+import repository.WaterRepository;
 import service.WaterTrackerService;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -28,17 +31,30 @@ public class Cli {
         while (true) {
             System.out.println("Please enter the amount of water you drank (in ml): ");
             String input = scanner.nextLine();
+
+            // Exit condition
             if (input.equalsIgnoreCase("exit")) {
                 break;
             }
+
+            if (input.equalsIgnoreCase("history")) {
+                showHistory();
+                continue;
+            }
+
+            if (input.equalsIgnoreCase("clear")) {
+                clearHistory();
+                continue;
+            }
+
             try {
                 int amount = Integer.parseInt(input);
                 // Call the service to add the entry
-                WaterEntry newEntry = new WaterEntry(amount);
+                WaterEntry newEntry = new WaterEntry(amount, LocalDateTime.now());
                 waterTrackerService.addEntry(newEntry);
 
                 // Format the timestamp
-                String formattedTime = newEntry.getTimestamp().format(formatter);
+                String formattedTime = newEntry.timestamp().format(formatter);
 
                 int totalIntake = waterTrackerService.getTotalWaterIntake();
                 double progress = waterTrackerService.getProgress();
@@ -59,6 +75,22 @@ public class Cli {
 
         System.out.println("Thank you for using the Water Tracker!");
     }
+
+    public static void clearHistory() {
+        waterTrackerService.clearHistory();
+        System.out.println("✅ History cleared.");
+    }
+
+    private static void showHistory() {
+        System.out.println("📜 Water Intake History:");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        for (WaterEntry entry : waterTrackerService.getHistory()) {
+            String time = entry.timestamp().format(formatter);
+            System.out.println("💧 " + entry.amount() + " ml at " + time);
+        }
+        System.out.println();
+    }
+
 
 
 }
