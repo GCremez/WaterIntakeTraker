@@ -2,6 +2,13 @@ package model;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * WaterEntry is a class that represents a single entry of water intake.
+ * It contains the amount of water in milliliters and the timestamp of when the entry was made.
+ */
+
+
 public record WaterEntry(int amount, LocalDateTime timestamp) {
     /**
      * Constructor for WaterEntry

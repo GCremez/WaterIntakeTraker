@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * WaterTrackerService is a service class that manages water intake entries and tracks progress.
+ * It allows adding new entries, setting daily goals, and checking if the goal is met.
+ */
+
 public class WaterTrackerService {
 
     private List<WaterEntry> entries;

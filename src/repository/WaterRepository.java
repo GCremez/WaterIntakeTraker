@@ -8,6 +8,11 @@ import java.util.List;
 import java.io.*;
 
 
+/**
+ * WaterRepository is a class that handles the storage and retrieval of water intake entries.
+ * It uses a text file to save and load entries.
+ */
+
 public class WaterRepository {
     private static final String FILE_NAME = "water_entries.txt";
 
