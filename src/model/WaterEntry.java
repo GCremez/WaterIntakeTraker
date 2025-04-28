@@ -17,6 +17,8 @@ public record WaterEntry(int amount, LocalDateTime timestamp) {
      */
 
 
+
+
     public WaterEntry(int amount, LocalDateTime timestamp) {
         this.timestamp = LocalDateTime.now();
         this.amount = amount;

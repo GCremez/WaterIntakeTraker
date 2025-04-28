@@ -3,6 +3,9 @@ package service;
 import model.WaterEntry;
 import repository.WaterRepository;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,29 +19,34 @@ import java.util.List;
 public class WaterTrackerService {
 
     private List<WaterEntry> entries;
-    private int dailyGoal;
+    private int dailyGoal = 2000; // Default daily goal in milliliters
 
 
-
-    public WaterTrackerService() {
-        this.entries = new ArrayList<>();
-        this.dailyGoal = 2000; // Default daily goal in milliliters
+    public WaterTrackerService(List<WaterEntry> entries) {
+        this.entries = entries;
     }
+
 
     public void addEntry(WaterEntry entry) {
         entries.add(entry);
-        // Save the entry to the repository
-        WaterRepository.saveEntries(entries);
     }
 
     public int getTotalWaterIntake() {
-        int total = 0;
+        LocalDate today = LocalDate.now();
+        return entries.stream()
+                .filter(entry -> entry.timestamp().toLocalDate().equals(today))
+                .mapToInt(WaterEntry::amount)
+                .sum();
+    }
 
-        for (WaterEntry entry : entries) {
-            total += entry.amount();
-        }
-
-        return total;
+    public int getTotalWaterIntakeThisMonth() {
+        LocalDate today = LocalDate.now();
+        return entries.stream()
+                .filter(entry ->
+                        entry.timestamp().getMonth() == today.getMonth() &&
+                                entry.timestamp().getYear() == today.getYear())
+                .mapToInt(WaterEntry::amount)
+                .sum();
     }
 
     public void setDailyGoal(int dailyGoal) {
@@ -57,13 +65,27 @@ public class WaterTrackerService {
 
     }
 
+    public void exportToCsv(String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write("Amount,Date,Time\n");
+            for (WaterEntry entry : entries) {
+                writer.write(entry.amount() + "," +
+                        entry.timestamp().toLocalDate() + "," +
+                        entry.timestamp().toLocalTime() + "\n");
+            }
+            System.out.println("✅ Data exported to " + filename);
+        } catch (IOException e) {
+            System.out.println("❌ Failed to export: " + e.getMessage());
+        }
+    }
+
     public boolean isGoalMet() {
         return getTotalWaterIntake()
                 >= dailyGoal;
     }
 
     public List<WaterEntry> getHistory() {
-        return WaterRepository.loadAllEntries();
+        return entries;
     }
 
 
