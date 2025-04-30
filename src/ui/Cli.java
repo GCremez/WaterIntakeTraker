@@ -186,7 +186,7 @@ public class Cli {
             System.out.println("No entries found.");
             return;
         } else {
-            System.out.println("📜 Water Intake History:");
+            System.out.println("Water Intake History:");
             for (WaterEntry entry : entries) {
                 System.out.println("💧 " + entry.amount() + " ml at " + entry.timestamp());
             }
@@ -199,11 +199,11 @@ public class Cli {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String lastTime = lastEntry.timestamp().format(formatter);
 
-        System.out.println("📊 Stats:" );
+        System.out.println("Stats:" );
         drawProgressBar(waterTrackerService.getProgress()); // Progress bar
-        System.out.println("🧃 Total Entries: " + entries.size());
-        System.out.printf("🧮 Average Intake: %.1f ml\n", average);
-        System.out.println("⏰ Last Entry: " + lastTime);
+        System.out.println("Total Entries: " + entries.size());
+        System.out.printf("Average Intake: %.1f ml\n", average);
+        System.out.println("Last Entry: " + lastTime);
         System.out.println();
     }
 
