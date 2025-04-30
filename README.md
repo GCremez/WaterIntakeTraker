@@ -8,9 +8,9 @@ A Java-based command-line app that helps users log, track, and manage their dail
 
 - 📝 **Log Water Intake** – Add water intake in milliliters with timestamps
 - 📊 **Track Total Intake** – View how much water you've consumed today
-- 🎯 **Set Daily Goals** *(coming soon)* – Stay on top of your hydration target
-- 💾 **Data Persistence** *(coming soon)* – Save and reload water logs
-- 📖 **View History** *(coming soon)* – Browse your past entries
+- 🎯 **Set Daily Goals** – Stay on top of your hydration target
+- 💾 **Data Persistence** – Save and reload water logs
+- 📖 **View History** – Browse your past entries
 
 ---
 
@@ -19,7 +19,7 @@ A Java-based command-line app that helps users log, track, and manage their dail
 - **Java** – Core app logic
 - **IntelliJ IDEA** – Development environment
 - **Git & GitHub** – Version control
-- **Local File Storage** *(soon)* – For saving water logs
+- **Local File Storage** – For saving water logs
 
 ---
 
@@ -41,4 +41,4 @@ A Java-based command-line app that helps users log, track, and manage their dail
 - 📲 Mobile app (Android/iOS)
 
 **🌟 Stay hydrated. Stay healthy.
-👨‍💻 Built with Java & 💙 by GCreme**
+👨‍💻 Built with Java & 💙 by GCremez**
